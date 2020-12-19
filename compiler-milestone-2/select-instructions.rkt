@@ -1,57 +1,51 @@
 #lang typed/racket
 
 (require typed/rackunit
-         "types.rkt")
+         "types.rkt"
+         "utilities.rkt")
 
 (provide select-instructions)
 
 (define (select-instructions [c0 : C0]) : X86
-  (match c0
-    [`(program ,info ,p) `(program ,info ,(map tail-to-block p))]))
+  (match c0 [(Program info body) (Program info (map tail-to-block body))]))
 
-(define (tail-to-block [tail : (Pairof Symbol TailC0)]) : (Pairof Symbol BlockX86)
+(define (tail-to-block [tail : (Labeled TailC0)]) : (Labeled BlockX86)
   (match tail
-    [`(,label . ,tail) `(,label . (block () ,@(instructions-tail tail)))]))
+    [`(,label ,tail) `(,label (block () ,@(instructions-tail tail)))]))
 
 (define (instructions-tail [tail : TailC0]) : (Listof InstrX86)
-  (match tail
-    [`(return ,r) (append (instructions-asgn '(reg rax) r) '((jmp conclusion)))]
-    [`(seq ,stmt ,tail) (append (instructions-stmt stmt) (instructions-tail tail))]))
-
-(define (instructions-stmt [stmt : StmtC0]) : (Listof InstrX86)
-  (match stmt [`(assign ,x ,exp) (instructions-asgn (instructions-arg x) exp)]))
+  (append*
+   (map (λ ([stmt : (U RetC0 StmtC0)]) : (Listof InstrX86)
+          (match stmt
+            [`(return ,r) (append (instructions-asgn '(reg rax) r) '((jmp (label conclusion))))]
+            [`(assign ,x ,exp) (instructions-asgn x exp)])) tail)))
 
 (define (instructions-asgn [x : ArgX86] [exp : ExpC0]) : (Listof InstrX86)
   (match* (x exp)
-    [(x (or (? integer? v) (? symbol? v))) `((mov ,x ,(instructions-arg (cast v ArgC0))))]
-    [('(reg rax) '(read)) '((call read_int))]
-    [(x '(read)) `((call read_int) (mov ,x (reg rax)))]
-    [(`(var ,x) (or `(+ ,x ,y) `(+ ,y ,x))) `((add (var ,x) ,(instructions-arg (cast y ArgC0))))]
-    [(x `(+ ,a ,b)) `((mov ,x ,(instructions-arg a)) (add ,x ,(instructions-arg b)))]
-    [(`(var ,x) `(- ,x)) `((neg (var ,x)))]
-    [(x `(- ,y)) `((mov ,x ,(instructions-arg y)) (neg ,x))]))
-
-(define (instructions-arg [arg : ArgC0]) : ArgX86
-  (match arg
-    [(? integer? i) `(int ,i)]
-    [(? symbol? v) `(var ,v)]))
-
+    [(`(reg ,r) (? atom? v)) `((mov (reg ,r) ,(cast v Atom)))]
+    [(x (? atom? v)) `((mov (reg rax) ,(cast v Atom)) (mov ,x (reg rax)))]
+    [('(reg rax) '(read)) '((call (label read_int)))]
+    [(x '(read)) `((call (label read_int)) (mov ,x (reg rax)))]
+    [(`(reg ,r) `(+ ,a ,b)) `((mov (reg ,r) ,a) (add (reg ,r) ,b))]
+    [(x `(+ ,a ,b)) `((mov (reg rax) ,a) (add (reg rax) ,b) (mov ,x (reg rax)))]
+    [(`(reg ,r) `(- ,x)) `((mov (reg ,r) ,x) (neg (reg ,r)))]
+    [(x `(- ,y)) `((mov (reg rax) ,y) (neg (reg rax)) (mov ,x (reg rax)))]))
 
 
 (check-equal?
- (select-instructions '(program ()
-                                ((start .
-                                        (seq (assign x.1 20)
-                                             (seq (assign x.2 22)
-                                                  (seq (assign y (+ x.1 x.2))
-                                                       (return y))))))))
- '(program ()
-           ((start . 
-                   (block
-                    ()
-                    (mov (var x.1) (int 20))
-                    (mov (var x.2) (int 22))
-                    (mov (var y) (var x.1))
-                    (add (var y) (var x.2))
-                    (mov (reg rax) (var y))
-                    (jmp conclusion))))))
+ (select-instructions (Program '()
+                               '((start ((assign x.1 20)
+                                         (assign x.2 22)
+                                         (assign y (+ x.1 x.2))
+                                         (return y))))))
+ (Program '()
+          '((start (block ()
+                          (mov (reg rax) 20)
+                          (mov x.1 (reg rax))
+                          (mov (reg rax) 22)
+                          (mov x.2 (reg rax))
+                          (mov (reg rax) x.1)
+                          (add (reg rax) x.2)
+                          (mov y (reg rax))
+                          (mov (reg rax) y)
+                          (jmp (label conclusion)))))))

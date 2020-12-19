@@ -6,7 +6,7 @@
 
 (define (verify [s : Sexp]) : R1
   (match s
-    [`(program ,info ,exp) `(program () ,(verify-exp exp))]
+    [`(program ,info ,exp) (Program '() (verify-exp exp))]
     [other (error "Invalid Program")]))
 
 (define (verify-exp [s : Sexp]) : ExpR1

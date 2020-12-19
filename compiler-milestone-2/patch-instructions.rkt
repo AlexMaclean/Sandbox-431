@@ -6,11 +6,11 @@
 (provide patch-instructions)
 
 (define (patch-instructions [p : X86]) : X86
-  (match p [`(program ,info ,blocks) `(program ,info ,(map patch-block blocks))]))
+  (match p [(Program info body) (Program info (map patch-block body))]))
 
-(define (patch-block [b : (Pairof Symbol BlockX86)]) : (Pairof Symbol BlockX86)
-  (match b [`(,label . (block ,info . ,instrs))
-            `(,label . (block ,info . ,(append* (map patch-instr instrs))))]))
+(define (patch-block [b : (Labeled BlockX86)]) : (Labeled BlockX86)
+  (match b [`(,label (block ,info . ,instrs))
+            `(,label (block ,info . ,(append* (map patch-instr instrs))))]))
 
 (define (patch-instr [i : InstrX86]) : (Listof InstrX86)
   (match i
@@ -21,25 +21,25 @@
     [other (list other)]))
 
 
-(check-equal? (patch-instructions '(program
-                                    ((stack-size 16))
-                                    ((start .
+(check-equal? (patch-instructions (Program
+                                   '((stack-size 16))
+                                   '((start
                                             (block 
                                              ()
-                                             (mov (deref rbp -8) (int 42))
+                                             (mov (deref rbp -8) 42)
                                              (mov (deref rbp -16) (deref rbp -8))
                                              (mov (reg rax) (deref rbp -16))
-                                             (jmp conclusion)
+                                             (jmp (label conclusion))
                                              )))))
-              '(program
-                ((stack-size 16))
-                ((start .
+              (Program
+               '((stack-size 16))
+               '((start
                         (block 
                          ()
-                         (mov (deref rbp -8) (int 42))
+                         (mov (deref rbp -8) 42)
                          (mov (reg rax) (deref rbp -8))
                          (mov (deref rbp -16) (reg rax))
                          (mov (reg rax) (deref rbp -16))
-                         (jmp conclusion)
+                         (jmp (label conclusion))
                          )))))
               

@@ -7,49 +7,44 @@
 (provide assign-homes)
 
 (define (assign-homes [prog : X86]) : X86
-  (match prog
-    [`(program ((locals ,(? list? l))) ,bs)
-     (let ([homes (get-homes (cast l (Listof Symbol)))])
-       `(program ((stack-size ,(* 8 (length l))))
-                 ,(map (λ ([b : (Pairof Symbol BlockX86)])
-                         `(,(car b) . ,(asng-block (cdr b) homes))) bs)))]))
+  (define locals (cast (program-info prog 'locals) (Listof Symbol)))
+  (define homes (get-homes locals))
+  (match prog [(Program _ body)
+               (Program `((stack-size ,(* 8 (length locals))))
+                        (map (λ ([b : (Labeled BlockX86)]) (asng-block b homes)) body))]))
 
-(define (asng-block [b : BlockX86] [homes : (Env ArgX86)]) : BlockX86
-  (match b [`(block ,info . ,instrs)
-            `(block ,info . ,(map (λ ([i : InstrX86]) (asgn-instr i homes)) instrs))]))
+(define (asng-block [b : (Labeled BlockX86)] [homes : (Env ArgX86)]) : (Labeled BlockX86)
+  (match b [`(,label (block ,info . ,instrs))
+            `(,label (block ,info . ,(map (λ ([i : InstrX86]) (asgn-instr i homes)) instrs)))]))
 
+;; (map (λ ([a : (U ArgX86 LabelX86)]) (asgn-arg a homes)) 
 (define (asgn-instr [i : InstrX86] [homes : (Env ArgX86)]) : InstrX86
   (match i
-    [`(,op ,(? list? a) ,(? list? b))
-     (cast `(,op ,(asgn-arg a homes) ,(asgn-arg b homes)) InstrX86)]
-    [`(,op ,(? list? a))
-     (cast `(,op ,(asgn-arg a homes)) InstrX86)]
-    [other other]))
+    [`(,op . ,args)
+     (cast `(,op . ,(map (λ ([a : (U ArgX86 LabelX86)]) (asgn-arg a homes)) args)) InstrX86)]))
 
-(define (asgn-arg [arg : ArgX86] [homes : (Env ArgX86)]) : ArgX86
-  (match arg
-    [`(var ,v) (lookup v homes)]
-    [other other]))
+(define (asgn-arg [arg : (U ArgX86 LabelX86)] [homes : (Env ArgX86)]) : (U ArgX86 LabelX86)
+  (if (symbol? arg) (lookup arg homes) arg))
 
 (define (get-homes [locals : (Listof Symbol)]) : (Env ArgX86)
   (map (λ ([l : Symbol] [i : Integer]) `(,l (deref rbp ,i)))
        locals (range -8 (* -8 (add1 (length locals))) -8)))
 
 
-(check-equal? (assign-homes '(program ((locals (tmp.1 tmp.2)))
-                                      ((start . (block ()
-                                                       (mov (int 10) (var tmp.1))
-                                                       (neg (var tmp.1))
-                                                       (mov (var tmp.1) (var tmp.2))
-                                                       (add (int 52) (var tmp.2))
-                                                       (mov (var tmp.2) (reg rax)))))))
-              '(program
-                ((stack-size 16))
-                ((start .
-                        (block 
-                         ()
-                         (mov (int 10) (deref rbp -8))
-                         (neg (deref rbp -8))
-                         (mov (deref rbp -8) (deref rbp -16))
-                         (add (int 52) (deref rbp -16))
-                         (mov (deref rbp -16) (reg rax)))))))
+(check-equal? (assign-homes (Program '((locals (tmp.1 tmp.2)))
+                                     '((start (block ()
+                                                     (mov 10 tmp.1)
+                                                     (neg tmp.1)
+                                                     (mov tmp.1 tmp.2)
+                                                     (add 52 tmp.2)
+                                                     (mov tmp.2 (reg rax)))))))
+              (Program
+               '((stack-size 16))
+               '((start
+                  (block 
+                   ()
+                   (mov 10 (deref rbp -8))
+                   (neg (deref rbp -8))
+                   (mov (deref rbp -8) (deref rbp -16))
+                   (add 52 (deref rbp -16))
+                   (mov (deref rbp -16) (reg rax)))))))

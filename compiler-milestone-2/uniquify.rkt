@@ -6,7 +6,7 @@
 (provide uniquify)
 
 (define (uniquify [r1 : R1]) : R1
-  (match r1 [`(program ,info ,e) `(program ,info ,(uniquify-exp e '()))]))
+  (match r1 [(Program info body) (Program info (uniquify-exp body '()))]))
 
 (define (uniquify-exp [e : ExpR1] [env : (Env Symbol)]) : ExpR1
   (match e
