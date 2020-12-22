@@ -1,6 +1,7 @@
 #lang typed/racket
 
-(require "compiler.rkt")
+(require/typed "compiler.rkt"
+               [compile (Sexp Symbol → Any)])
 
 (define (blungentle-args [args : (Vectorof String)]) : Void
   (match args

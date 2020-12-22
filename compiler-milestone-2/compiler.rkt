@@ -1,37 +1,40 @@
-#lang typed/racket
-
-(require "verify.rkt"
-         "uniquify.rkt"
-         "remove-complex-opera.rkt"
-         "explicate-control.rkt"
-         "uncover-locals.rkt"
-         "select-instructions.rkt"
-         "assign-homes.rkt"
-         "patch-instructions.rkt"
-         "print-x86.rkt")
+#lang racket/base
 
 (provide compile)
 
+(require racket/match
+         "r1-stages.rkt"
+         "c0-stages.rkt"
+         "register-allocation.rkt"
+         "registers-untyped.rkt"
+         "x86-stages.rkt"
+         "print-x86.rkt")
+
 (define steps
-  (cast
-   `((verify ,verify)
+   `((parse ,parse)
      (uniquify ,uniquify)
      (remove-complex-opera* ,remove-complex-opera*)
      (explicate-control ,explicate-control)
      (uncover-locals ,uncover-locals)
      (select-instructions ,select-instructions)
-     (assign-homes ,assign-homes)
+     (uncover-live ,uncover-live)
+     (build-interference ,build-interference)
+     (allocate-registers ,allocate-registers)
      (patch-instructions ,patch-instructions)
-     (print-x86 ,print-x86))
-   (Listof (List Symbol (Any -> Any)))))
+     (print-x86 ,print-x86)))
 
-(define (compile [s : Sexp] [stop : Symbol]) : Any
-  (apply-steps s steps stop))
+(define (compile sexp stop-symbol)
+  (apply-steps sexp steps stop-symbol))
 
-(define (apply-steps [on : Any] [steps : (Listof (List Symbol (Any -> Any)))] [stop : Symbol]) : Any
+(define (apply-steps on steps stop-symbol)
   (match steps
     ['() on]
     [(cons step rst)
      (cond
-       [(equal? stop (first step)) ((second step) on)]
-       [else (apply-steps ((second step) on) rst stop)])]))
+       [(equal? stop-symbol (car step)) ((cadr step) on)]
+       [else (apply-steps ((cadr step) on) rst stop-symbol)])]))
+
+(module+ test
+  (require rackunit)
+
+  (check-equal? #t #f))

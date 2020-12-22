@@ -1,0 +1,6 @@
+It doesn't make a whole lot of sense to try to make the
+type checker type check arity and types of the X86 or r1
+expressions when they are represented as lists,
+its not really up to the job, I'm going to push that
+responsiblity up to myself.
+
