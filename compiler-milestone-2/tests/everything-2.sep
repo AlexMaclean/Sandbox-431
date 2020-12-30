@@ -1,0 +1,1 @@
+(let ((f (or (eq? (read) 8006) (eq? #f #f)))) (- (if f 9262 (read))))

@@ -1,0 +1,2 @@
+(let ((i (if (if #t #f #t) (> 2362 (read)) (not #f))))
+  (let ((m (let ((o i)) 7231))) (read)))

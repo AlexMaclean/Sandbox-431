@@ -1,0 +1,545 @@
+#lang racket
+(let ((n
+       (and (and (eq?
+                  (or #t
+                      (<
+                       (-
+                        (let ((j 4961))
+                          (let ((m
+                                 (>= 3183 (- (- j 1323) (if #t (read) 4748)))))
+                            (read)))
+                        (-
+                         (-
+                          (-
+                           (- (+ 6276 (read)) (let ((l #t)) (read)))
+                           (- (- (read) 2040) (- (read))))
+                          (let ((n (let ((b (< (read) 2000))) (- 6943))))
+                            (- (let ((j 1808)) j))))
+                         (if (and (or (not #t) (eq? 8645 (read)))
+                                  (let ((b 9562)) (> b b)))
+                           151
+                           (if (not (<= 3286 (read))) (read) 221))))
+                       (+ (read) (- 5481))))
+                  (let ((g
+                         (<
+                          (-
+                           (+
+                            (- (read))
+                            (let ((f
+                                   (-
+                                    (- (let ((c #t)) (read)) (read))
+                                    (read))))
+                              5109))
+                           (read))
+                          7591)))
+                    g))
+                 (let ((i
+                        (if (if (eq?
+                                 (-
+                                  (if (or (<= (let ((h #f)) (read)) 8341)
+                                          (or (let ((n (read))) #t)
+                                              (> 3311 3474)))
+                                    (read)
+                                    (let ((e
+                                           (<=
+                                            (+ 595 (read))
+                                            (let ((k (read))) 5399))))
+                                      636)))
+                                 (- 4522))
+                              #t
+                              (eq?
+                               (read)
+                               (+
+                                (-
+                                 (+
+                                  (let ((e (eq? #t #t))) (if e (read) (read)))
+                                  (- (read))))
+                                (let ((g
+                                       (+
+                                        (let ((m (let ((o (read))) o)))
+                                          (- m m))
+                                        (let ((p (>= 2527 (read))))
+                                          (if #t 8339 (read))))))
+                                  g))))
+                          (>
+                           (-
+                            (if (>=
+                                 (-
+                                  (if (< (read) (read)) (- (read)) 3343)
+                                  (let ((h (and #f #t))) 174))
+                                 (read))
+                              (let ((h
+                                     (eq?
+                                      (if (or #f #f) (> 9958 5982) (eq? #t #t))
+                                      (<
+                                       (let ((b #t)) 1334)
+                                       (let ((d #t)) (read))))))
+                                (+ (- (- 2244) 369) 7279))
+                              (- 552))
+                            1746)
+                           (let ((c
+                                  (and (let ((b
+                                              (and (eq?
+                                                    (< 1314 (read))
+                                                    (or #f #f))
+                                                   (eq?
+                                                    (+ 3881 (read))
+                                                    (read)))))
+                                         (<=
+                                          (let ((f (let ((d #f)) 8351)))
+                                            (+ f 5554))
+                                          (let ((e (if b #f #f))) (read))))
+                                       (let ((d
+                                              (let ((d
+                                                     (not (let ((b #f)) #f))))
+                                                (<=
+                                                 (let ((c (read))) 8151)
+                                                 (if d (read) (read))))))
+                                         (eq?
+                                          (>=
+                                           (+ 5564 (read))
+                                           (let ((k 6898)) 7975))
+                                          (>= (read) (if #t 4403 (read))))))))
+                             741))
+                          (if (let ((e
+                                     (-
+                                      (if (or (if (or #t #t)
+                                                (>= (read) 3046)
+                                                (> (read) 242))
+                                              (or (<= 8811 3716)
+                                                  (>= (read) (read))))
+                                        (- (+ (read) (if #t 3903 (read))))
+                                        9720))))
+                                (eq?
+                                 (and #f
+                                      (or (> (- 8698 (read)) (let ((k #t)) e))
+                                          (<= (- (read)) 9651)))
+                                 (not
+                                  (and (<= 2062 987)
+                                       (or (> e e) (eq? e (read)))))))
+                            (or (if (<=
+                                     (- (- (let ((k 5463)) k) 7517))
+                                     (let ((n
+                                            (<=
+                                             (- 3797 2639)
+                                             (- (read) 5154))))
+                                       1085))
+                                  (eq?
+                                   (<=
+                                    (let ((i (if #t 9558 6951))) 1060)
+                                    (let ((j (+ 7151 (read)))) 4350))
+                                   (eq?
+                                    (eq? (<= (read) 9368) (> 5644 (read)))
+                                    (not (eq? 3406 (read)))))
+                                  (>=
+                                   (-
+                                    (let ((k (<= (read) 1169)))
+                                      (let ((m 2268)) m)))
+                                   (- (read) (+ (read) (read)))))
+                                (or (and (<
+                                          (+
+                                           (let ((a 588)) (read))
+                                           (if #f (read) (read)))
+                                          (if (let ((l 1834)) #f)
+                                            (- 759)
+                                            (- 2324)))
+                                         (<=
+                                          (let ((e (if #f (read) 6706)))
+                                            (let ((j #t)) (read)))
+                                          (if (<= (read) (read))
+                                            (- 6476 3073)
+                                            (if #t 7974 (read)))))
+                                    (and (let ((e
+                                                (>=
+                                                 (- 7495)
+                                                 (if #f 9650 258))))
+                                           (>
+                                            (let ((o #f)) 9118)
+                                            (let ((n e)) (read))))
+                                         (eq?
+                                          (or (eq? 1653 (read)) #t)
+                                          (let ((o (if #t #f #t)))
+                                            (eq? 3533 9307))))))
+                            (<
+                             (read)
+                             (let ((b
+                                    (eq?
+                                     (>=
+                                      7827
+                                      (+ (+ (read) 7292) (- (read) 5860)))
+                                     (<
+                                      (let ((b (if #f #t #f))) (read))
+                                      (if (> (read) 6104)
+                                        (read)
+                                        (let ((g 9032)) (read)))))))
+                               (-
+                                (if (<= (- (read)) (let ((o 6732)) 2383))
+                                  (- (if #t (read) (read)))
+                                  (- 4209)))))))))
+                   (and (let ((f (let ((d 796)) (- (read)))))
+                          (not
+                           (>=
+                            (if (<=
+                                 (let ((o i)) (- f (read)))
+                                 (+ (let ((g #t)) 9104) (+ f f)))
+                              (-
+                               (if i (let ((h (read))) (read)) (if #f 2627 f))
+                               (if (let ((l f)) i)
+                                 (let ((i #t)) f)
+                                 (- 6250 542)))
+                              (let ((p (let ((g (> f f))) (or g g))))
+                                (+ 9366 (let ((p f)) 420))))
+                            (- (let ((i #t)) (read)) f))))
+                        (if (<
+                             (let ((p
+                                    (-
+                                     (read)
+                                     (let ((m
+                                            (eq?
+                                             (let ((l (read))) #t)
+                                             (<= (read) (read)))))
+                                       (- (let ((d m)) (read)))))))
+                               (+
+                                (let ((n (> p 3614)))
+                                  (+ (- (read) p) (+ (read) 5298)))
+                                7372))
+                             (-
+                              (read)
+                              (if (not #f)
+                                6160
+                                (-
+                                 (let ((m (< (read) (read)))) (- (read)))
+                                 (if (not #t)
+                                   (if #f 3000 6623)
+                                   (let ((p i)) (read)))))))
+                          (eq?
+                           (not
+                            (let ((p (>= (read) (read))))
+                              (<
+                               (let ((m 1278)) m)
+                               (if p (- (read) 5154) (let ((f #t)) 4925)))))
+                           (or (eq?
+                                (if (let ((c (let ((g i)) (read)))) #t)
+                                  (+ (let ((p i)) (read)) (read))
+                                  (if (> (read) 302)
+                                    (let ((i (read))) i)
+                                    (+ 6219 3862)))
+                                (- (read) (- (read))))
+                               (eq?
+                                6414
+                                (+
+                                 (- (- (read)) 1170)
+                                 (+ (- 2186 (read)) (let ((p 3570)) p))))))
+                          (or (eq?
+                               (let ((k
+                                      (+
+                                       (-
+                                        (let ((j (read))) (read))
+                                        (+ (read) 5309))
+                                       (- (if #t (read) 3909)))))
+                                 (read))
+                               9346)
+                              (and (>
+                                    (read)
+                                    (if #f
+                                      (let ((e (let ((k #f)) #f)))
+                                        (+ (read) 1595))
+                                      (if (eq? (read) 4149)
+                                        (+ 9596 (read))
+                                        (read))))
+                                   #f))))))
+            (not
+             (>
+              (let ((b
+                     (and (not #t)
+                          (<
+                           (+
+                            (if (let ((b
+                                       (let ((e (or #f #t)))
+                                         (let ((e #t)) 5429))))
+                                  (> (- (read) 2084) (+ 3373 b)))
+                              (+ (- 7976) (+ (- (read)) (- 8935 (read))))
+                              (-
+                               (+ (- 2135) (+ (read) (read)))
+                               (let ((p (+ 2787 (read)))) 7240)))
+                            (if (eq?
+                                 80
+                                 (let ((k (if #f (read) (read))))
+                                   (let ((c (read))) 2487)))
+                              (if (<= (- (read) 2987) (let ((d 1105)) 42))
+                                7679
+                                (- (- 8146 (read)) (- 4023)))
+                              (-
+                               (if (>= (read) (read))
+                                 (- (read))
+                                 (let ((l (read))) (read))))))
+                           (+ 5233 (- (- (read) (- (- (read) 4996)))))))))
+                6418)
+              (+
+               (if (or (eq?
+                        (if (or (let ((a (let ((g 6516)) #t)))
+                                  (let ((h 426)) #f))
+                                #f)
+                          (read)
+                          (+ (read) (read)))
+                        (let ((k (not (> (if #f (read) 5342) (+ 5178 8206)))))
+                          (read)))
+                       (or (not
+                            (if (not (<= (read) 1043))
+                              (let ((n (read))) #t)
+                              (< (- 2351 9032) (read))))
+                           (if (eq?
+                                (- (read) (let ((k 6322)) 225))
+                                (- (let ((g #f)) (read))))
+                             (and (and (>= (read) 6870) (eq? 580 (read)))
+                                  (eq? (+ 9102 (read)) (let ((l #f)) (read))))
+                             (<=
+                              (let ((k (- 4071 1653))) 720)
+                              (- (+ (read) 9068) (read))))))
+                 (if #t
+                   (let ((f
+                          (and (let ((m (eq? (+ 587 9944) (+ 1003 (read)))))
+                                 (< (- (read)) (if m 669 4604)))
+                               (let ((n (+ 6432 (read)))) (>= 2573 3359)))))
+                     (read))
+                   (if (let ((j
+                              (let ((k (- (- (read) (read)))))
+                                (<= (- 5779) (let ((g k)) (read))))))
+                         (or (eq? (>= (read) 5337) (< 219 (read)))
+                             (<= (if j 2838 7104) (+ 4559 3667))))
+                     (-
+                      (if (<= (- (read) (read)) (- (read) 7847))
+                        (+ (let ((n #f)) 2897) (if #f 3082 (read)))
+                        (read))
+                      (let ((d (- (- 3638 8765)))) (- 1543 (if #f d 5070))))
+                     (if (let ((m (- (- 2414))))
+                           (if (< m (read)) (let ((g #f)) g) (< 748 2261)))
+                       7411
+                       (- (+ (- 2578 9921) (let ((i (read))) i))))))
+                 (read))
+               (+
+                (let ((b (eq? (- (- 9597 1619)) (read))))
+                  (-
+                   (+
+                    (let ((f (- (+ 9228 5927) (- (read) (read))))) (read))
+                    (let ((p (let ((i 8833)) 4420)))
+                      (let ((i (> (read) p))) 5525)))
+                   (let ((n
+                          (let ((g (>= 820 (- 5097))))
+                            (<= (if #t (read) (read)) (- (read))))))
+                     (read))))
+                (if (<=
+                     (-
+                      (let ((n (let ((o (< 9896 (read)))) (> 7280 3624))))
+                        (let ((g (not n))) (- 4066 (read))))
+                      (if (>= (if #f 7366 (read)) (read)) (read) 1072))
+                     2008)
+                  (let ((j
+                         (eq?
+                          (let ((o (- 7466 (- (read) 8844)))) 4894)
+                          (read))))
+                    (if (let ((n
+                               (<
+                                (let ((b #f)) (read))
+                                (let ((k (read))) 8838))))
+                          (and (<= 5931 (read)) (let ((g n)) #t)))
+                      (let ((i 7005))
+                        (let ((a (let ((e 3225)) 4469))) (if j 4476 (read))))
+                      4011))
+                  (+ 4553 (- 5993 5588))))))))))
+  (+
+   (-
+    (let ((o (read)))
+      (if (if (eq?
+               #f
+               (or (eq? (read) (read))
+                   (and (if (>= 407 (read))
+                          (or n (eq? n #t))
+                          (< (if #f 9239 (read)) (let ((c (read))) o)))
+                        (< (read) 1924))))
+            (eq?
+             (let ((n (+ (- 9924 (let ((a 5053)) (- a))) (read))))
+               (and (if (>= (+ n 8398) (+ n o))
+                      (and #f (let ((i #f)) i))
+                      (> o o))
+                    (let ((a n)) (not (or #t #f)))))
+             (let ((g
+                    (or (if (let ((n n)) (and n n))
+                          #t
+                          (let ((i (- 9411 o))) #f))
+                        (not (<= 1302 (- 3984 1564))))))
+               (>=
+                1697
+                (if (if (and g n) (< 4926 o) (or g #t))
+                  (- (let ((e #t)) o) 4621)
+                  (read)))))
+            (>
+             (let ((o
+                    (not
+                     (>=
+                      (+ (let ((e 5291)) (read)) (read))
+                      (let ((i (or n #t))) (let ((p (read))) 48))))))
+               (let ((b
+                      (if (<= (let ((p o)) 3008) (+ 4526 (read)))
+                        (let ((p (let ((e #f)) #t))) (if #f n #f))
+                        (<= (let ((p 5677)) (read)) (+ 8999 (read))))))
+                 1587))
+             (- (- (read)) 6512)))
+        (let ((h
+               (let ((p (- 9212 o)))
+                 (-
+                  (let ((a
+                         (<=
+                          p
+                          (let ((h (let ((b n)) 2607))) (if n 3092 (read))))))
+                    (let ((o (let ((d 1347)) d))) (+ (- o o) p)))
+                  (read)))))
+          (let ((a
+                 (eq?
+                  (let ((k (let ((d n)) 3058))) (let ((d (read))) n))
+                  (>=
+                   (if (let ((e o)) (not #t))
+                     8045
+                     (if #t (- h) (let ((e (read))) 6788)))
+                   h))))
+            1952))
+        (read))))
+   (let ((g
+          (and (and (if (<
+                         (-
+                          (let ((h
+                                 (+
+                                  (let ((n (or n n))) (let ((o 1468)) (read)))
+                                  (let ((c (or #f #f))) (read)))))
+                            (if (let ((e (+ 9595 h))) (eq? (read) (read)))
+                              (let ((j (let ((n 6047)) #t))) 9605)
+                              h))
+                          (if (eq?
+                               (- (- (read) (read)))
+                               (- (read) (+ (read) (read))))
+                            (read)
+                            (+
+                             (- (- 738 (read)))
+                             (let ((e (let ((l 4938)) l)))
+                               (let ((l #f)) 9526)))))
+                         1239)
+                      (<
+                       (let ((b
+                              (-
+                               (+
+                                (+ (+ 8937 2668) (read))
+                                (let ((j (<= 1467 (read)))) (+ (read) (read))))
+                               (-
+                                (if (or #t n) (+ 2877 2868) (- 1176 (read)))
+                                (+ (let ((n n)) (read)) 3272)))))
+                         (if (let ((l (- (+ 4318 b)))) (and (or #f n) n))
+                           (let ((b (<= (+ 3362 b) (let ((d (read))) 1653))))
+                             (- (let ((e (read))) e)))
+                           (-
+                            (+ (if #t b (read)) (let ((f b)) (read)))
+                            (+ (- b) (+ 1343 9014)))))
+                       (let ((f
+                              (-
+                               (-
+                                (if (> (read) (read))
+                                  (let ((b (read))) (read))
+                                  (if n (read) 9628))))))
+                         (if (<=
+                              (let ((o f)) (+ (read) f))
+                              (let ((e (> 7168 f))) 5428))
+                           (let ((c (- 4878))) (let ((a (+ (read) c))) 1196))
+                           (read))))
+                      (> 2655 (read)))
+                    (let ((h
+                           (let ((l
+                                  (let ((p
+                                         (if (let ((b
+                                                    (let ((c
+                                                           (let ((l 1338))
+                                                             #t)))
+                                                      (< 3037 6243))))
+                                               (and (let ((j (read))) n) n))
+                                           8258
+                                           7503)))
+                                    (+
+                                     (let ((m
+                                            (let ((e (let ((k (read))) p)))
+                                              (>= p (read)))))
+                                       (let ((o (let ((i n)) p))) (read)))
+                                     p))))
+                             (and (and (or (<
+                                            (let ((l #f)) (read))
+                                            (let ((i n)) (read)))
+                                           (>= l (+ (read) (read))))
+                                       (not (let ((b l)) (<= b l))))
+                                  (>= (if n (- (if n l 2950)) (read)) 9626)))))
+                      (or (or (>=
+                               (let ((e 6931))
+                                 (+ (- e e) (let ((h h)) (read))))
+                               (read))
+                              #t)
+                          (eq?
+                           (let ((p
+                                  (let ((i
+                                         (let ((g (let ((f #t)) #f)))
+                                           (- 2709 (read)))))
+                                    i)))
+                             (if (let ((f (- (read) p))) (<= (read) 7640))
+                               p
+                               9231))
+                           (let ((o
+                                  (if (>= (let ((n 7526)) 4135) 3577)
+                                    (+ (- (read) (read)) (+ (read) (read)))
+                                    (read))))
+                             (- (- (read))))))))
+               (if n
+                 #f
+                 (eq?
+                  (let ((l
+                         (-
+                          (read)
+                          (+
+                           (-
+                            (- (+ 3629 (read)))
+                            (let ((a (< (read) (read)))) (read)))
+                           (read)))))
+                    (not
+                     (let ((o
+                            (let ((l
+                                   (let ((k (let ((o n)) #f))) (+ l (read)))))
+                              (- (- (read)) l))))
+                       n)))
+                  (<
+                   (let ((e
+                          (let ((o (+ (- (if n 4101 4828)) 3648)))
+                            (let ((k (- (- o)))) (let ((f (>= o o))) (- o))))))
+                     (+ (+ (let ((c (- (read)))) 3632) e) (- e)))
+                   (let ((e
+                          (let ((h
+                                 (>=
+                                  (let ((f 4564)) (+ f (read)))
+                                  (- 1257 4878))))
+                            (read))))
+                     (+
+                      (if (>= (let ((p e)) (read)) (let ((b 9281)) b))
+                        (let ((m (read))) (- e 1462))
+                        (let ((o (> e e))) (if #f 7633 e)))
+                      (let ((b
+                             (if (> 9381 857) (let ((i (read))) 9097) (read))))
+                        489)))))))))
+     (if n
+       (if g
+         (let ((n g))
+           (if (eq?
+                (if (let ((b (not (if n #t n))))
+                      (eq? (let ((l (read))) 7069) 6884))
+                  (read)
+                  (+ (let ((j (- (read)))) j) (let ((c (or n g))) (read))))
+                (let ((i (read)))
+                  (+
+                   (if (and n #f) (let ((a #t)) i) 8100)
+                   (let ((k (- 1803))) 1425))))
+             (read)
+             (- 2943)))
+         (read))
+       (let ((k g)) (read))))))
