@@ -1,0 +1,12 @@
+#!/bin/bash
+
+INFILE="$1"
+OUTFILE="$2"
+
+racket src/blungentle.rkt "$INFILE" temp.s
+
+nasm -f elf64 -o temp.o temp.s
+clang -m64 -c runtime.c
+clang -m64 -o "$OUTFILE" temp.o runtime.o
+
+#rm temp.s temp.o

@@ -37,11 +37,3 @@
 
 
 
-(define (unparse [s : R]) : Sexp
-  (match s [(Program _ e) (unparse-exp)]))
-
-(define (unparse-exp [s : ExpR]) : Sexp
-  (match s
-    [(? atom? x) x]
-    [(LetR var val e) `(let ([,var ,(unparse-exp val)]) ,(unparse-exp e))]
-    [`(,op . ,args) `(,op  . ,(map unparse-exp args))]))

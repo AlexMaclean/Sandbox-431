@@ -38,8 +38,8 @@
     ;; If we have a predicate that is a boolean literal, then we don't need to preserve the
     ;; conditional, just returns the tail corresponding to the correct side of the if
     [(? boolean? b) (if b thn els)]
-    ;; An eq? or a < is a valid part of a C program, so we'll just leave those alone
-    [(or `(eq? ,a ,b) `(< ,a ,b)) `((if ,(cast exp CmpC) ,(goto thn g) ,(goto els g)))]
+    ;; An eq?, > or a < is a valid part of a C program, so we'll just leave those alone
+    [(or `(eq? ,a ,b) `(< ,a ,b) `(> ,a ,b)) `((if ,(cast exp CmpC) ,(goto thn g) ,(goto els g)))]
     ;; A variable can be converted to just an equality comparison with #t, the recursive call will
     ;; end up in the above match clause.
     [(? symbol? var) (explicate-pred `(eq? ,var #t) thn els g)]

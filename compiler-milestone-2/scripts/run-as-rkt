@@ -1,0 +1,4 @@
+#!/bin/bash
+
+RKT="(match $(cat $1) [(? boolean? b) (if b 1 0)] [other other])"
+racket -e "$RKT" < input.txt

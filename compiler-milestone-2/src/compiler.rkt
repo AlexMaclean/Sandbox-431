@@ -17,6 +17,8 @@
          "patch-instructions.rkt"
          "print-x86.rkt")
 
+(require "toolbox.rkt")
+
 (define steps
   `((parse ,parse)
     (type-check ,type-check)

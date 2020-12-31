@@ -15,7 +15,7 @@
 (define-type GotoC (List 'goto Symbol))
 (define-type IfC (List 'if CmpC GotoC GotoC))
 (define-type ExpC (U Atom (List 'read) (List '- Atom) (List '+ Atom Atom) (List 'not Atom) CmpC))
-(define-type CmpC (List (U 'eq? '<) Atom Atom))
+(define-type CmpC (List (U 'eq? '< '>) Atom Atom))
 
 ;; x86 Language
 (define-type X86 (Program (Listof BlockX86)))

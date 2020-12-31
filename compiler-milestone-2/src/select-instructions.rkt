@@ -46,7 +46,7 @@
 
 ;; Translates a comparison in the C language to the coresponding condition code in x86
 (define (get-cc [op : Symbol]) : CC
-  (match op ['eq? 'e] ['< 'l]))
+  (match op ['eq? 'e] ['< 'l] ['> 'g]))
 
 ;; ---------------------------------------------------------------------------------------------------
 

@@ -18,9 +18,8 @@
     ;; Shrink or & and by converting them to equivalent if statements, similar racket
     [`(and ,a ,b) `(if ,(shrink-exp a) ,(shrink-exp b) #f)]
     [`(or ,a ,b) `(if ,(shrink-exp a) #t ,(shrink-exp b))]
-    ;; Express all inequality comparisions in terms of <, using not and reversing arguments
-    [`(> ,a ,b) `(< ,(shrink-exp b) ,(shrink-exp a))]
-    [`(<= ,a ,b) `(not (< ,(shrink-exp b) ,(shrink-exp a)))]
+    ;; Express all inequality comparisions in terms of < or >, using not
+    [`(<= ,a ,b) `(not (> ,(shrink-exp a) ,(shrink-exp b)))]
     [`(>= ,a ,b) `(not (< ,(shrink-exp a) ,(shrink-exp b)))]
     ;; These cannot be shrunk any further, they are left unchanged, but non-terminals are recured upon
     [(? atom? x) x]
@@ -32,12 +31,12 @@
 (module+ test
   (require typed/rackunit)
 
-  (check-equal? (shrink (Program (Info) '(> a b))) (Program (Info) '(< b a)))
+  (check-equal? (shrink (Program (Info) '(< b a))) (Program (Info) '(< b a)))
 
   (check-equal? (shrink-exp 5) 5)
   (check-equal? (shrink-exp '(- 5)) '(- 5))
   (check-equal? (shrink-exp '(- 4 5)) '(+ 4 (- 5)))
-  (check-equal? (shrink-exp '(and a (<= b c))) '(if a (not (< c b)) #f))
+  (check-equal? (shrink-exp '(and a (<= b c))) '(if a (not (> b c)) #f))
   (check-equal? (shrink-exp '(or c (>= d e))) '(if c #t (not (< d e))))
-  (check-equal? (shrink-exp (LetR 'x 5 '(> 4 5))) (LetR 'x 5 '(< 5 4)))
+  (check-equal? (shrink-exp (LetR 'x 5 '(< 5 4))) (LetR 'x 5 '(< 5 4)))
   (check-equal? (shrink-exp '(if #t (- 1 2) (read))) '(if #t (+ 1 (- 2)) (read))))

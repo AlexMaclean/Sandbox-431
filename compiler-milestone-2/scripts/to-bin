@@ -1,0 +1,5 @@
+#!/bin/bash
+
+nasm -f elf64 -o temp.o temp.s
+clang -m64 -c runtime.c
+clang -m64 -o temp temp.o runtime.o
