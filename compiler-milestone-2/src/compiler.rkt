@@ -17,8 +17,6 @@
          "patch-instructions.rkt"
          "print-x86.rkt")
 
-(require "toolbox.rkt")
-
 (define steps
   `((parse ,parse)
     (type-check ,type-check)
@@ -44,8 +42,3 @@
      (cond
        [(equal? stop-symbol (car step)) ((cadr step) on)]
        [else (apply-steps ((cadr step) on) rst stop-symbol)])]))
-
-(module+ test
-  (require rackunit)
-
-  (check-equal? #t #f))

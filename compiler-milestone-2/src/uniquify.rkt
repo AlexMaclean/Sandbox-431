@@ -14,8 +14,9 @@
     [(? symbol? var) (hash-ref env var)]
     [(or (? integer? val) (? boolean? val)) val]
     [`(,op . ,args) `(,op . ,(map (λ ([a : ExpR]) (uniquify-exp a env)) args))]
-    [(LetR x e body)
-     (let ([x* (gensym x)]) (LetR x* (uniquify-exp e env) (uniquify-exp body (hash-set env x x*))))]))
+    [(If cnd thn els) (If (uniquify-exp cnd env) (uniquify-exp thn env) (uniquify-exp els env))]
+    [(Let x e body)
+     (let ([x* (gensym x)]) (Let x* (uniquify-exp e env) (uniquify-exp body (hash-set env x x*))))]))
 
 ;; ---------------------------------------------------------------------------------------------------
 
@@ -25,17 +26,24 @@
   (check-match
    (uniquify
     (Program (Info)
-             (LetR 'x (LetR 'x 4
-                            '(+ x 1))
-                   '(+ x #t))))
+             (Let 'x (Let 'x 4
+                          '(+ x 1))
+                  '(+ x #t))))
    (Program _
-            (LetR x.2 (LetR x.1 4
-                            `(+ ,x.1 1))
-                  `(+ ,x.2 #t))))
+            (Let x.2 (Let x.1 4
+                          `(+ ,x.1 1))
+                 `(+ ,x.2 #t))))
 
   (check-match
    (uniquify
     (Program (Info)
-             (LetR 'x 32 `(+ ,(LetR 'x 10 'x) x))))
+             (Let 'x 32 `(+ ,(Let 'x 10 'x) x))))
    (Program _
-            (LetR x.1 32 `(+ ,(LetR x.2 10 x.2) ,x.1)))))
+            (Let x.1 32 `(+ ,(Let x.2 10 x.2) ,x.1))))
+
+  (check-match
+   (uniquify
+    (Program (Info)
+             (If #t 3 (Let 'x 32 `(+ ,(Let 'x 10 'x) x)))))
+   (Program _
+            (If #t 3 (Let x.1 32 `(+ ,(Let x.2 10 x.2) ,x.1))))))

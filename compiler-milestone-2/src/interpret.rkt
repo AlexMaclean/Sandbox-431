@@ -20,7 +20,7 @@
   (match e
     [(or (? boolean? v) (? integer? v)) v]
     [(? symbol? var) (hash-ref env var (λ () (error "Unbound ID:" var)))]
-    [(LetR var val body) (interp-exp body (hash-set env var (interp-exp val env)))]
+    [(Let var val body) (interp-exp body (hash-set env var (interp-exp val env)))]
     [`(if ,cnd ,thn ,els) (if (interp-exp cnd env) (interp-exp thn env) (interp-exp els env))]
     [`(and ,a ,b) (and (interp-exp a env) (interp-exp b env))]
     [`(or ,a ,b) (or (interp-exp a env) (interp-exp b env))]

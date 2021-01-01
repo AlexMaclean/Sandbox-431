@@ -16,8 +16,8 @@
     [`(,(? nulary-op? o)) `(,o)]
     [`(,(? unary-op? o) ,x) `(,o ,(parse-exp x))]
     [`(,(? binary-op? o) ,a ,b) `(,o ,(parse-exp a) ,(parse-exp b))]
-    [`(let ([,(? symbol? var) ,val]) ,e) (LetR var (parse-exp val) (parse-exp e))]
-    [`(if ,cnd ,thn ,els) `(if ,(parse-exp cnd) ,(parse-exp thn) ,(parse-exp els))]
+    [`(let ([,(? symbol? var) ,val]) ,e) (Let var (parse-exp val) (parse-exp e))]
+    [`(if ,cnd ,thn ,els) (If (parse-exp cnd) (parse-exp thn) (parse-exp els))]
     [other (error 'Parse-Error "Invalid expression ~e" other)]))
 
 (define-predicate nulary-op? 'read)
@@ -32,9 +32,9 @@
   (check-equal? (parse '(+ (read) (- (+ 3 5))))
                 (Program (Info) '(+ (read) (- (+ 3 5)))))
   (check-equal? (parse '(program () (if #f 3 4)))
-                (Program (Info) '(if #f 3 4)))
+                (Program (Info) (If #f 3 4)))
   (check-equal? (parse-exp '(let ([y 4]) (> y x)))
-                (LetR 'y 4 '(> y x)))
+                (Let 'y 4 '(> y x)))
 
   (check-exn #px"Parse-Error: Invalid expression" (λ () (parse-exp '(+ 4 5 6))))
   (check-exn #px"Parse-Error: Invalid expression" (λ () (parse-exp '(-))))

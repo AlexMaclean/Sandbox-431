@@ -19,7 +19,7 @@
   (match e
     [(? integer?) 'Integer]
     [(? boolean?) 'Boolean]
-    [(? symbol? var) (hash-ref tenv var (λ () (error 'Type-Error "Unbound identifier ~e" var)))]
+    [(? symbol? var) (hash-ref tenv var (λ () (error 'Type-Errora "Unbound identifier ~e" var)))]
     ['(read) 'Integer]
     [`(- ,x) (begin (assert-type x tenv 'Integer) 'Integer)]
     [`(not ,x) (begin (assert-type x tenv 'Boolean) 'Boolean)]
@@ -30,9 +30,8 @@
     [`(,(or 'and 'or) ,a ,b)
      (begin (assert-type a tenv 'Boolean) (assert-type b tenv 'Boolean) 'Boolean)]
     [`(eq? ,a ,b) (begin (assert-type-match a b 'eq? tenv) 'Boolean)]
-    [`(if ,cnd ,thn ,els)
-     (begin (assert-type cnd tenv 'Boolean) (assert-type-match thn els 'if tenv))]
-    [(LetR var val body) (type-check-exp body (hash-set tenv var (type-check-exp val tenv)))]))
+    [(If cnd thn els) (begin (assert-type cnd tenv 'Boolean) (assert-type-match thn els 'if tenv))]
+    [(Let var val body) (type-check-exp body (hash-set tenv var (type-check-exp val tenv)))]))
 
 ;; Given 2 expressions with types that must match and a type enviroment, asserts they do and raises an
 ;; error otherwise, uses the in argument for the error message.
@@ -65,13 +64,13 @@
   (check-equal? (type-check-exp '(+ (- 3 5) x) #hash((x . Integer))) 'Integer)
   (check-equal? (type-check-exp '(> 8 5) #hash()) 'Boolean)
   (check-equal? (type-check-exp '(eq? 4 5) #hash()) 'Boolean)
-  (check-equal? (type-check-exp '(if #t #t #t) #hash()) 'Boolean)
-  (check-equal? (type-check-exp (LetR 'x 5 '(+ x y)) #hash((y . Integer))) 'Integer)
+  (check-equal? (type-check-exp (If #t #t #t) #hash()) 'Boolean)
+  (check-equal? (type-check-exp (Let 'x 5 '(+ x y)) #hash((y . Integer))) 'Integer)
 
   (check-exn #px"Unbound identifier \'x"
              (λ () (type-check-exp '(+ 3 x) #hash())))
   (check-exn #px"Type-Error: Types must match, but got Boolean and Integer in \'if"
-             (λ () (type-check-exp '(if #t #f 5) #hash())))
+             (λ () (type-check-exp (If #t #f 5) #hash())))
   (check-exn #px"Type-Error: Types must match, but got Boolean and Integer in \'eq?"
              (λ () (type-check-exp '(eq? #t 5) #hash())))
   (check-exn #px"Type-Error: Expected Integer, but got Boolean in #t"

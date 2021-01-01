@@ -4,8 +4,9 @@
 
 ;; R Language
 (define-type R (Program ExpR))
-(define-type ExpR (U Atom (List* Symbol (Listof ExpR)) LetR))
-(struct LetR ([var : Symbol] [val : ExpR] [body : ExpR]) #:prefab)
+(define-type ExpR (U Atom (List* Symbol (Listof ExpR)) Let If))
+(struct Let ([var : Symbol] [val : ExpR] [body : ExpR]) #:prefab)
+(struct If ([cnd : ExpR] [thn : ExpR] [els : ExpR]) #:prefab)
 
 ;; C Language
 (define-type C (Program (Env TailC)))

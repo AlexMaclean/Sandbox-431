@@ -12,22 +12,22 @@
 (define (rco-exp [e : ExpR]) : ExpR
   (match e
     [(? atom? atm) atm]
-    [(LetR x e body) (LetR x (rco-exp e) (rco-exp body))]
-    [`(if ,cnd ,thn ,els) `(if ,(rco-exp cnd) ,(rco-exp thn) ,(rco-exp els))]
+    [(Let x e body) (Let x (rco-exp e) (rco-exp body))]
+    [(If cnd thn els) (If (rco-exp cnd) (rco-exp thn) (rco-exp els))]
     [`(,op . ,exps) (let-values ([(args envs) (rco-arg* exps)])
                       (env-to-lets (cons op args) (append* envs)))]))
 
 ;; Given an expression and an environment it must run with, wraps the exression in a series of lets
 ;; so the exp can be evaluated without any additional env
 (define (env-to-lets [exp : ExpR] [env : (Env ExpR)]) : ExpR
-  (foldr (λ ([i : (Labeled ExpR)] [a : ExpR]) (LetR (first i) (second i) a)) exp env))
+  (foldr (λ ([i : (Labeled ExpR)] [a : ExpR]) (Let (first i) (second i) a)) exp env))
 
 ;; Given an R expression, that is an argument to another expression, and therefore must be an atom,
 ;; returns an atom and the environment needed to evaluate it
 (define (rco-arg [a : ExpR]) : (Values ExpR (Env ExpR))
   (match a
     [(? atom? atm) (values atm '())]
-    [(LetR x e body) (let-values ([(arg env) (rco-arg body)])
+    [(Let x e body) (let-values ([(arg env) (rco-arg body)])
                        (values arg (cons (list x (rco-exp e)) env)))]
     [other (let ([tmp (gensym 'tmp)]) (values tmp (list (list tmp (rco-exp other)))))]))
 
@@ -46,33 +46,33 @@
     (Program (Info)
              '(+ 52 (- 10))))
    (Program _
-            (LetR tmp.1 '(- 10)
+            (Let tmp.1 '(- 10)
                   `(+ 52 ,tmp.1))))
 
   (check-equal?
    (remove-complex-opera*
     (Program (Info)
-             (LetR 'a 42
-                   (LetR 'b 'a
+             (Let 'a 42
+                   (Let 'b 'a
                          'b))))
    (Program (Info)
-            (LetR 'a 42
-                  (LetR 'b 'a
+            (Let 'a 42
+                  (Let 'b 'a
                         'b))))
 
   (check-equal?
    (remove-complex-opera*
     (Program (Info)
-             (LetR 'y (LetR 'x.1 20
-                            `(+ x.1 ,(LetR 'x.2 22 'x.2)))
+             (Let 'y (Let 'x.1 20
+                            `(+ x.1 ,(Let 'x.2 22 'x.2)))
                    'y)))
    (Program (Info)
-            (LetR 'y (LetR 'x.1 20
-                           (LetR 'x.2 22
+            (Let 'y (Let 'x.1 20
+                           (Let 'x.2 22
                                  '(+ x.1 x.2)))
                   'y)))
 
   (check-match
    (remove-complex-opera*
-    (Program (Info) '(if (not (< 3 7)) 1 (+ 4 5))))
-   (Program _ `(if ,(LetR tmp '(< 3 7) `(not ,tmp)) 1 (+ 4 5)))))
+    (Program (Info) (If '(not (< 3 7)) 1 '(+ 4 5))))
+   (Program _ (If (Let tmp '(< 3 7) `(not ,tmp)) 1 '(+ 4 5)))))
